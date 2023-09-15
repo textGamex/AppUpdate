@@ -1,0 +1,36 @@
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AppUpdate.Models;
+using Newtonsoft.Json;
+
+namespace AppUpdate.Services
+{
+    public class GitHubApi : ServiceBase
+    {
+        private static readonly HttpClient Client = new HttpClient();
+
+        static GitHubApi()
+        {
+            Client.DefaultRequestHeaders.Clear();
+            Client.DefaultRequestHeaders.Add("User-Agent", 
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
+        }
+
+        public GitHubApi(string userName, string repositoryName, Version currentVersion) 
+            : base(userName, repositoryName, currentVersion)
+        {
+        }
+
+        public override async Task<bool> HasLatestAsync()
+        {
+            var url = new Uri($"https://api.github.com/repos/{UserName}/{RepositoryName}/releases/latest");
+            
+            var result = await Client.GetStringAsync(url);
+            var model = JsonConvert.DeserializeObject<GitHub>(result);
+            var version = new Version(model.TagName);
+            
+            return version > CurrentVersion;
+        }
+    }
+}
