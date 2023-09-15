@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AppUpdate.Models;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace AppUpdate.Services
 
         public override async Task<bool> HasLatestAsync()
         {
-            string url = $"https://gitee.com/api/v5/repos/{UserName}/{RepositoryName}/releases/latest?access_token={_key}";
+            var url = new Uri($"https://gitee.com/api/v5/repos/{UserName}/{RepositoryName}/releases/latest?access_token={_key}");
             
             var result = await Client.GetStringAsync(url);
             var gitInfo = JsonConvert.DeserializeObject<GiteeReleases>(result);

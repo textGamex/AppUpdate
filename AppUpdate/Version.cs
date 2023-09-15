@@ -16,6 +16,10 @@ namespace AppUpdate
         /// <param name="version">表示版本号的字符串,可带v前缀</param>
         public Version(string version = "v1.0.0")
         {
+            if (version.Length == 0)
+            {
+                throw new ArgumentException(nameof(version));
+            }
             _version = new List<int>(GetVersionArray(version));
         }
 
@@ -25,28 +29,33 @@ namespace AppUpdate
         /// <param name="version">版本号的数值表示</param>
         public Version(params int[] version)
         {
+            if (version.Length == 0)
+            {
+                throw new ArgumentException(nameof(version));
+            }
             _version = new List<int>(version);
         }
 
         private static IEnumerable<int> GetVersionArray(string version)
         {
-            version = version.ToLower().Trim();
-            if (version.Contains("v"))
+            version = version.Trim().ToUpperInvariant();
+            if (version[0] == 'V')
             {
                 version = version.Substring(1).Trim();
             }
-            
-            var arrayStr = version.Split('-')[0].Split('.');
-            int[] arrayInt = new int[arrayStr.Length];
+
+            var rawText = version.Contains("-") ? version.Split('-')[0] : version;
+            var array = rawText.Split('.');
+            int[] arrayInt = new int[array.Length];
             for (int i = 0; i < arrayInt.Length; ++i)
             {
                 try
                 {
-                    arrayInt[i] = int.Parse(arrayStr[i]);
+                    arrayInt[i] = int.Parse(array[i]);
                 }
-                catch (FormatException)
+                catch (FormatException ex)
                 {
-                    throw new ArgumentException(arrayStr[i]);
+                    throw new ArgumentException(array[i], ex);
                 }
             }
             return arrayInt;
