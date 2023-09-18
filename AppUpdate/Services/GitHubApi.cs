@@ -17,8 +17,8 @@ namespace AppUpdate.Services
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         }
 
-        public GitHubApi(string userName, string repositoryName, Version currentVersion) 
-            : base(userName, repositoryName, currentVersion)
+        public GitHubApi(string userName, string repositoryName, AppVersion currentAppVersion) 
+            : base(userName, repositoryName, currentAppVersion)
         {
         }
 
@@ -28,9 +28,9 @@ namespace AppUpdate.Services
             
             var result = await Client.GetStringAsync(url);
             var model = JsonConvert.DeserializeObject<GitHub>(result);
-            var version = new Version(model.TagName);
+            var version = new AppVersion(model.TagName);
             
-            return version > CurrentVersion;
+            return version > CurrentAppVersion;
         }
     }
 }

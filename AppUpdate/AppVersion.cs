@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AppUpdate
 {
-    public class Version
+    public class AppVersion
     {
         private readonly List<int> _version;
         private int? _hashCode;
@@ -14,7 +14,7 @@ namespace AppUpdate
         /// 使用字符串构建对象
         /// </summary>
         /// <param name="version">表示版本号的字符串,可带v前缀</param>
-        public Version(string version = "v1.0.0")
+        public AppVersion(string version = "v1.0.0")
         {
             if (version.Length == 0)
             {
@@ -27,7 +27,7 @@ namespace AppUpdate
         /// 用给定的版本参数构建对象
         /// </summary>
         /// <param name="version">版本号的数值表示</param>
-        public Version(params int[] version)
+        public AppVersion(params int[] version)
         {
             if (version.Length == 0)
             {
@@ -75,7 +75,7 @@ namespace AppUpdate
         {
             if (this.GetType() != obj.GetType())
                 return false;
-            return this == (Version)obj;
+            return this == (AppVersion)obj;
         }
 
         public override string ToString()
@@ -94,7 +94,7 @@ namespace AppUpdate
         }
 
         #region 运算符重载
-        public static bool operator ==(Version left, Version right)
+        public static bool operator ==(AppVersion left, AppVersion right)
         {
             if (left._version.Count != right._version.Count)
             {
@@ -112,12 +112,12 @@ namespace AppUpdate
             return true;
         }
 
-        public static bool operator !=(Version left, Version right)
+        public static bool operator !=(AppVersion left, AppVersion right)
         {
             return !(left == right);
         }
 
-        public static bool operator >(Version left, Version right)
+        public static bool operator >(AppVersion left, AppVersion right)
         {
             int length;
             //防止数组越界
@@ -144,7 +144,7 @@ namespace AppUpdate
             return false;
         }
 
-        public static bool operator <(Version left, Version right)
+        public static bool operator <(AppVersion left, AppVersion right)
         {
             if (left == right)
             {

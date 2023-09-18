@@ -10,8 +10,8 @@ namespace AppUpdate.Services
     {
         private static readonly HttpClient Client = new HttpClient();
         private readonly string _key;
-        public GiteeApi(string userName, string repositoryName, string key, Version currentVersion) 
-            : base(userName, repositoryName, currentVersion)
+        public GiteeApi(string userName, string repositoryName, string key, AppVersion currentAppVersion) 
+            : base(userName, repositoryName, currentAppVersion)
         {
             _key = key;
         }
@@ -22,9 +22,9 @@ namespace AppUpdate.Services
             
             var result = await Client.GetStringAsync(url);
             var gitInfo = JsonConvert.DeserializeObject<GiteeReleases>(result);
-            var webVersion = new Version(gitInfo.Tag_name);
+            var webVersion = new AppVersion(gitInfo.Tag_name);
             
-            return webVersion > CurrentVersion;
+            return webVersion > CurrentAppVersion;
         }
     }
 }

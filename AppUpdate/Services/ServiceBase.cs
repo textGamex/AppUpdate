@@ -6,13 +6,13 @@ namespace AppUpdate.Services
     {
         protected readonly string UserName;
         protected readonly string RepositoryName;
-        protected readonly Version CurrentVersion;
+        protected readonly AppVersion CurrentAppVersion;
 
-        protected ServiceBase(string userName, string repositoryName, Version currentVersion)
+        protected ServiceBase(string userName, string repositoryName, AppVersion currentAppVersion)
         {
             UserName = userName;
             RepositoryName = repositoryName;
-            CurrentVersion = currentVersion;
+            CurrentAppVersion = currentAppVersion;
         }
 
         public abstract Task<bool> HasLatestAsync();
