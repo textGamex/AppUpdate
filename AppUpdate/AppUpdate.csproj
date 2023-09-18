@@ -7,6 +7,8 @@
     <NeutralLanguage>zh-CN</NeutralLanguage>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>disable</Nullable>
+    <Authors>textGamex</Authors>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
