@@ -9,6 +9,7 @@
     <Nullable>disable</Nullable>
     <Authors>textGamex</Authors>
     <Version>1.1.1</Version>
+    <RepositoryUrl>https://github.com/textGamex/AppUpdate</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
