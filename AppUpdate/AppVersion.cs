@@ -73,8 +73,8 @@ namespace AppUpdate
 
         public override bool Equals(object obj)
         {
-            if (this.GetType() != obj.GetType())
-                return false;
+            if (obj is null) return false;
+            if (this.GetType() != obj.GetType()) return false;
             return this == (AppVersion)obj;
         }
 

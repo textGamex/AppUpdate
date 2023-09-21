@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AppUpdate.Services
 {
-    public class GitHubApi : ServiceBase
+    public class GitHubApi : UpdateServiceBase
     {
         private static readonly HttpClient Client = new HttpClient();
 
@@ -22,6 +22,11 @@ namespace AppUpdate.Services
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpRequestException"></exception>
         public override async Task<bool> HasLatestAsync()
         {
             var url = new Uri($"https://api.github.com/repos/{UserName}/{RepositoryName}/releases/latest");
